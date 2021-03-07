@@ -1,4 +1,4 @@
-package org.example.sandbox;
+package org.example.sandbox.controller;
 
 import java.util.Collections;
 import java.util.List;
