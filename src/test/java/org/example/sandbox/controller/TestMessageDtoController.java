@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,8 +43,8 @@ public class TestMessageDtoController {
     }
 
     @Test
-    public void testGetLast() throws Exception {
-        Message mockMessage = new Message("any-message");
+    public void testGetLastWithData() throws Exception {
+        Optional<Message> mockMessage = Optional.of(new Message("any-message"));
         when(messageService.getLast()).thenReturn(mockMessage);
 
 
@@ -52,6 +53,19 @@ public class TestMessageDtoController {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"content\":\"any-message\"}"));
+
+    }
+
+    @Test
+    public void testGetLastNoData() throws Exception {
+        Optional<Message> mockMessage = Optional.empty();
+        when(messageService.getLast()).thenReturn(mockMessage);
+
+
+        mvc.perform(get("/getLast")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isNotFound());
 
     }
 

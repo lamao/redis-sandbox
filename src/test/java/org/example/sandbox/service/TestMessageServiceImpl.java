@@ -1,23 +1,25 @@
 package org.example.sandbox.service;
 
+import org.example.sandbox.service.impl.MessageServiceImpl;
 import org.example.sandbox.service.model.Message;
-import org.example.sandbox.service.redis.RedisMessageService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestRedisMessageService {
+public class TestMessageServiceImpl {
 
     private MessageService service;
 
     @BeforeEach
     public void setUp() {
-        service = new RedisMessageService();
+        service = new MessageServiceImpl(null);
     }
 
     @Test
@@ -26,11 +28,19 @@ public class TestRedisMessageService {
     }
 
     @Test
-    public void testGetLast() {
-        Message actual = service.getLast();
+    public void testGetLastReturnsData() {
+        Optional<Message> actual = service.getLast();
 
+        assertTrue(actual.isPresent());
         Message expected = new Message("any-message");
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.get());
+    }
+
+    @Test
+    public void testGetLastReturnsNoData() {
+        Optional<Message> actual = service.getLast();
+
+        assertFalse(actual.isPresent());
     }
 
     @Test

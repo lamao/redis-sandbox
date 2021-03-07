@@ -5,9 +5,11 @@ import org.example.sandbox.controller.dto.MessageDto;
 import org.example.sandbox.service.MessageService;
 import org.example.sandbox.service.model.Message;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -27,10 +29,12 @@ public class MessageController {
     }
 
     @GetMapping("getLast")
-    public MessageDto getLast() {
-        Message message = messageService.getLast();
+    public ResponseEntity<MessageDto> getLast() {
         // TODO: use converter
-        return new MessageDto(message.getContent());
+        Optional<MessageDto> dto = messageService.getLast()
+                .map(message -> new MessageDto(message.getContent()));
+
+        return ResponseEntity.of(dto);
     }
 
     @GetMapping("getByTime")
