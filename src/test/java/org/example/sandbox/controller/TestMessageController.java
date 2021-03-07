@@ -24,8 +24,8 @@ public class TestMessageController {
     @Test
     public void testPublish() throws Exception {
         mvc.perform(post("/publish")
-                .contentType(MediaType.TEXT_PLAIN_VALUE)
-                .content("any-message")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content("{\"content\":\"any-message\"}")
         )
                 .andExpect(status().isOk());
 
@@ -37,7 +37,7 @@ public class TestMessageController {
                 .contentType(MediaType.TEXT_PLAIN_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string("any-message"));
+                .andExpect(content().string("{\"content\":\"any-message\"}"));
 
     }
 
@@ -49,7 +49,12 @@ public class TestMessageController {
                 .contentType(MediaType.TEXT_PLAIN_VALUE)
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string("any-message"));
+                .andExpect(content().string("" +
+                        "[" +
+                        "   {\"content\":\"one\"}," +
+                        "   {\"content\":\"two\"}" +
+                        "]"
+                ));
 
     }
 }
