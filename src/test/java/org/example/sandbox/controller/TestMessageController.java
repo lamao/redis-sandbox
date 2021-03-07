@@ -57,4 +57,13 @@ public class TestMessageController {
                 ));
 
     }
+
+    @Test
+    public void testGetByTimeParametersNotSet() throws Exception {
+        mvc.perform(get("/getByTime")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isBadRequest());
+
+    }
 }
