@@ -1,3 +1,10 @@
+buildscript {
+    ext {
+        springBootVersion = '2.4.3'
+    }
+
+}
+
 plugins {
     id 'java'
 }
@@ -10,5 +17,8 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
 }
