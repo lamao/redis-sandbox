@@ -6,6 +6,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class TestRedisMessageService {
@@ -27,6 +30,17 @@ public class TestRedisMessageService {
         Message actual = service.getLast();
 
         Message expected = new Message("any-message");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetByTime() {
+        List<Message> actual = service.getByTime(10, 20);
+
+        List<Message> expected = Arrays.asList(
+                new Message("one"),
+                new Message("two")
+        );
         assertEquals(expected, actual);
     }
 }

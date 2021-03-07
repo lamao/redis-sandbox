@@ -1,10 +1,13 @@
 package org.example.sandbox.controller.dto;
 
-import lombok.Value;
+import lombok.*;
 
-@Value
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class MessageDto {
 
-    String content;
-
+    private String content;
 }
