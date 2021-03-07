@@ -1,4 +1,4 @@
-package org.example.sandbox.controller.dto;
+package org.example.sandbox.service.model;
 
 import lombok.Value;
 
@@ -6,5 +6,4 @@ import lombok.Value;
 public class Message {
 
     String content;
-
 }
