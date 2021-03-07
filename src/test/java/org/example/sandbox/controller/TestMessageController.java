@@ -24,7 +24,7 @@ public class TestMessageController {
     @Test
     public void testPublish() throws Exception {
         mvc.perform(post("/publish")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"content\":\"any-message\"}")
         )
                 .andExpect(status().isOk());
@@ -34,7 +34,7 @@ public class TestMessageController {
     @Test
     public void testGetLast() throws Exception {
         mvc.perform(get("/getLast")
-                .contentType(MediaType.TEXT_PLAIN_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().string("{\"content\":\"any-message\"}"));
@@ -46,7 +46,7 @@ public class TestMessageController {
         mvc.perform(get("/getByTime")
                 .param("start", "10")
                 .param("end", "20")
-                .contentType(MediaType.TEXT_PLAIN_VALUE)
+                .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().string("" +

@@ -8,20 +8,24 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping(
+        value = "/",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+)
 public class MessageController {
 
-    @PostMapping(value = "publish", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("publish")
     public void publish(@RequestBody Message message) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
-    @GetMapping(value = "getLast", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("getLast")
     public Message getLast() {
         return null;
     }
 
-    @GetMapping(value = "getByTime", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("getByTime")
     public List<Message> getByTime(
             @RequestParam long start,
             @RequestParam long end
