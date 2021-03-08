@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "c1c5ef56-6982-4435-b734-56a64515b689",
+		"name": "Redis Sandbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetLast",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/getLast",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getLast"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"third postman message\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/publish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByTime",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/getByTime?start=1615197000&end=1615198000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getByTime"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "1615197000"
+						},
+						{
+							"key": "end",
+							"value": "1615198000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
