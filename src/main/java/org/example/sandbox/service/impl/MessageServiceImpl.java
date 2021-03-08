@@ -30,7 +30,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Optional<Message> getLast() {
-        return repository.findFirstByPublishDateOrderByPublishDateDesc()
+        return repository.findFirst1ByOrderByPublishDateDesc()
                 .map(it -> new Message(it.getContent()));
 
     }

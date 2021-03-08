@@ -49,7 +49,7 @@ public class TestMessageServiceImpl {
                         .publishDate(new Date(10))
                         .build()
         );
-        when(repository.findFirstByPublishDateOrderByPublishDateDesc()).thenReturn(fakeEntity);
+        when(repository.findFirst1ByOrderByPublishDateDesc()).thenReturn(fakeEntity);
 
         Optional<Message> actual = service.getLast();
 
@@ -60,7 +60,7 @@ public class TestMessageServiceImpl {
 
     @Test
     public void testGetLastReturnsNoData() {
-        when(repository.findFirstByPublishDateOrderByPublishDateDesc()).thenReturn(Optional.empty());
+        when(repository.findFirst1ByOrderByPublishDateDesc()).thenReturn(Optional.empty());
 
         Optional<Message> actual = service.getLast();
 
