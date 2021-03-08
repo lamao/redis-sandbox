@@ -26,7 +26,11 @@ Explanations of some decisions
   Decided not to waste time for duplicated united tests. In real project
   separate unit tests may be useful because they don't launch Spring and
   are much faster.
-* Used gradle as a build tool because of personal preferences.  
+* Used gradle as a build tool because of personal preferences.
+* Decided not clarify details about API specification, data format, error handling etc. 
+  I thought the purpose of the task is to check technical level, and it's not
+  so important what shape has response (pure date or data wrapped in response
+  object)
 
 Some points were considered but haven't been implemented. Mostly because of lack of time
 * low-level implementation for getByTime. I have no experience with Redis. So,
