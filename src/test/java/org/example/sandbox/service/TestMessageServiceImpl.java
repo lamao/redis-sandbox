@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,10 +45,10 @@ public class TestMessageServiceImpl {
                 MessageEntity.builder()
                         .id("key")
                         .content("any-message")
-                        .publishDate(new Date(10))
+                        .publishTimestampMillis(10)
                         .build()
         );
-        when(repository.findFirst1ByOrderByPublishDateDesc()).thenReturn(fakeEntity);
+        when(repository.findFirst1ByOrderByPublishTimestampMillisDesc()).thenReturn(fakeEntity);
 
         Optional<Message> actual = service.getLast();
 
@@ -60,7 +59,7 @@ public class TestMessageServiceImpl {
 
     @Test
     public void testGetLastReturnsNoData() {
-        when(repository.findFirst1ByOrderByPublishDateDesc()).thenReturn(Optional.empty());
+        when(repository.findFirst1ByOrderByPublishTimestampMillisDesc()).thenReturn(Optional.empty());
 
         Optional<Message> actual = service.getLast();
 
@@ -73,22 +72,22 @@ public class TestMessageServiceImpl {
                 MessageEntity.builder()
                         .id("five")
                         .content("five")
-                        .publishDate(new Date(5000))
+                        .publishTimestampMillis(5000)
                         .build(),
                 MessageEntity.builder()
                         .id("fifteen")
                         .content("fifteen")
-                        .publishDate(new Date(15000))
+                        .publishTimestampMillis(15000)
                         .build(),
                 MessageEntity.builder()
                         .id("seventeen")
                         .content("seventeen")
-                        .publishDate(new Date(17000))
+                        .publishTimestampMillis(17000)
                         .build(),
                 MessageEntity.builder()
                         .id("thirty")
                         .content("thirty")
-                        .publishDate(new Date(30))
+                        .publishTimestampMillis(30)
                         .build()
         );
         when(repository.findAll()).thenReturn(fakeEntities);

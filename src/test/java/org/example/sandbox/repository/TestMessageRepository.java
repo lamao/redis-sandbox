@@ -1,17 +1,11 @@
 package org.example.sandbox.repository;
 
-import org.example.sandbox.configuration.TestRedisConfiguration;
 import org.example.sandbox.repository.entity.MessageEntity;
-import org.example.sandbox.service.model.Message;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -42,20 +36,20 @@ public class TestMessageRepository {
         repository.save(MessageEntity.builder()
                 .id("ten")
                 .content("some value")
-                .publishDate(new Date(10))
+                .publishTimestampMillis(10)
                 .build());
         repository.save(MessageEntity.builder()
                 .id("fifteen")
                 .content("another value")
-                .publishDate(new Date(15))
+                .publishTimestampMillis(15)
                 .build());
 
-        Optional<MessageEntity> actual = repository.findFirst1ByOrderByPublishDateDesc();
+        Optional<MessageEntity> actual = repository.findFirst1ByOrderByPublishTimestampMillisDesc();
 
         MessageEntity expected = MessageEntity.builder()
                 .id("fifteen")
                 .content("another value")
-                .publishDate(new Date(15))
+                .publishTimestampMillis(15)
                 .build();
 
         assertTrue(actual.isPresent());
@@ -66,18 +60,18 @@ public class TestMessageRepository {
     @Disabled
     @Test
     public void testGetByDate() {
-        List<MessageEntity> actual = repository.findAllByPublishDateBetween(new Date(10), new Date(20));
+        List<MessageEntity> actual = repository.findAllByPublishTimestampMillisBetween(new Date(10), new Date(20));
 
         List<MessageEntity> expected = Arrays.asList(
                 MessageEntity.builder()
                         .id("key1")
                         .content("one")
-                        .publishDate(new Date(15))
+                        .publishTimestampMillis(15)
                         .build(),
                 MessageEntity.builder()
                         .id("key2")
                         .content("two")
-                        .publishDate(new Date(17))
+                        .publishTimestampMillis(17)
                         .build()
         );
 

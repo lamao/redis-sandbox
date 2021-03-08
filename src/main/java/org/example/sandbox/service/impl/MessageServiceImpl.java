@@ -8,7 +8,6 @@ import org.example.sandbox.service.model.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +15,15 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MessageServiceImpl implements MessageService {
 
-    public static final int MILLINSECONS_IN_ON_SECOND = 1000;
-    private MessageRepository repository;
+    private static final int MILLINSECONDS_IN_ON_SECOND = 1000;
+
+    private final MessageRepository repository;
 
     @Override
     public void publish(String content) {
         MessageEntity entity = MessageEntity.builder()
                 .content(content)
-                .publishDate(new Date())
+                .publishTimestampMillis(System.currentTimeMillis())
                 .build();
 
         repository.save(entity);
@@ -31,20 +31,20 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Optional<Message> getLast() {
-        return repository.findFirst1ByOrderByPublishDateDesc()
+        return repository.findFirst1ByOrderByPublishTimestampMillisDesc()
                 .map(it -> new Message(it.getContent()));
 
     }
 
     @Override
     public List<Message> getByTime(long startSeconds, long endSeconds) {
-        Date startDate = new Date(startSeconds * MILLINSECONS_IN_ON_SECOND);
-        Date endDate = new Date(endSeconds * MILLINSECONS_IN_ON_SECOND);
+        long startMillis = startSeconds * MILLINSECONDS_IN_ON_SECOND;
+        long endMillis = endSeconds * MILLINSECONDS_IN_ON_SECOND;
 
         List<Message> result = new ArrayList<>();
 
         for (MessageEntity entity : repository.findAll()) {
-            if (isDateBetween(entity.getPublishDate(), startDate, endDate)
+            if (isTimestampBetween(entity.getPublishTimestampMillis(), startMillis, endMillis)
             ) {
                 result.add(new Message(entity.getContent()));
             }
@@ -53,7 +53,7 @@ public class MessageServiceImpl implements MessageService {
         return result;
     }
 
-    private boolean isDateBetween(Date date, Date startDate, Date endDate) {
-        return date.after(startDate) && date.before(endDate);
+    private boolean isTimestampBetween(long timestamp, long start, long end) {
+        return start <= timestamp && timestamp <= end;
     }
 }

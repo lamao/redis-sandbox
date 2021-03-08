@@ -16,5 +16,5 @@ public class MessageEntity {
     private String id;
     private String content;
     @Indexed
-    private Date publishDate;
+    private long publishTimestampMillis;
 }

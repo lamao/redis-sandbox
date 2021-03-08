@@ -11,8 +11,9 @@ import java.util.Optional;
 @Repository
 public interface MessageRepository extends CrudRepository<MessageEntity, String> {
 
-    Optional<MessageEntity> findFirst1ByOrderByPublishDateDesc();
+    // TODO: May work incorrectly. Investigate
+    Optional<MessageEntity> findFirst1ByOrderByPublishTimestampMillisDesc();
 
     // TODO: Implement another way
-    List<MessageEntity> findAllByPublishDateBetween(Date start, Date end);
+    List<MessageEntity> findAllByPublishTimestampMillisBetween(Date start, Date end);
 }
