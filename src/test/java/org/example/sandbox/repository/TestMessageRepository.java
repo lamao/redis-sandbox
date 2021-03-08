@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Created 07.03.2021
  */
 // TODO: Requires external redis server to be run.
-//@Disabled
+@Disabled
 @ExtendWith(SpringExtension.class)
 //@SpringBootTest(classes = TestRedisConfiguration.class)
 @DataRedisTest
