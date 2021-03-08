@@ -39,10 +39,10 @@ public class MessageController {
 
     @GetMapping("getByTime")
     public List<MessageDto> getByTime(
-            @RequestParam long start,
-            @RequestParam long end
+            @RequestParam("start") long startTimeStampInSeconds,
+            @RequestParam("end") long endTimeStampInSeconds
     ) {
-        List<Message> messages = messageService.getByTime(start, end);
+        List<Message> messages = messageService.getByTime(startTimeStampInSeconds, endTimeStampInSeconds);
         // TODO: use converter
         return messages.stream()
                 .map(it -> new MessageDto(it.getContent()))

@@ -73,17 +73,17 @@ public class TestMessageServiceImpl {
                 MessageEntity.builder()
                         .id("five")
                         .content("five")
-                        .publishDate(new Date(5))
+                        .publishDate(new Date(5000))
                         .build(),
                 MessageEntity.builder()
                         .id("fifteen")
                         .content("fifteen")
-                        .publishDate(new Date(15))
+                        .publishDate(new Date(15000))
                         .build(),
                 MessageEntity.builder()
                         .id("seventeen")
                         .content("seventeen")
-                        .publishDate(new Date(17))
+                        .publishDate(new Date(17000))
                         .build(),
                 MessageEntity.builder()
                         .id("thirty")

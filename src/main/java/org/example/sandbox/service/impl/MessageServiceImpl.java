@@ -16,6 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MessageServiceImpl implements MessageService {
 
+    public static final int MILLINSECONS_IN_ON_SECOND = 1000;
     private MessageRepository repository;
 
     @Override
@@ -36,9 +37,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> getByTime(long start, long end) {
-        Date startDate = new Date(start);
-        Date endDate = new Date(end);
+    public List<Message> getByTime(long startSeconds, long endSeconds) {
+        Date startDate = new Date(startSeconds * MILLINSECONS_IN_ON_SECOND);
+        Date endDate = new Date(endSeconds * MILLINSECONS_IN_ON_SECOND);
 
         List<Message> result = new ArrayList<>();
 
