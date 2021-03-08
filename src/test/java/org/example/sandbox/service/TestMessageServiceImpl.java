@@ -71,25 +71,33 @@ public class TestMessageServiceImpl {
     public void testGetByTime() {
         List<MessageEntity> fakeEntities = Arrays.asList(
                 MessageEntity.builder()
-                        .id("key1")
-                        .content("one")
+                        .id("five")
+                        .content("five")
+                        .publishDate(new Date(5))
+                        .build(),
+                MessageEntity.builder()
+                        .id("fifteen")
+                        .content("fifteen")
                         .publishDate(new Date(15))
                         .build(),
                 MessageEntity.builder()
-                        .id("key2")
-                        .content("two")
+                        .id("seventeen")
+                        .content("seventeen")
                         .publishDate(new Date(17))
+                        .build(),
+                MessageEntity.builder()
+                        .id("thirty")
+                        .content("thirty")
+                        .publishDate(new Date(30))
                         .build()
         );
-        Date fakeStart = new Date(10);
-        Date fakeEnd = new Date(20);
-        when(repository.findAllByPublishDateBetween(fakeStart, fakeEnd)).thenReturn(fakeEntities);
+        when(repository.findAll()).thenReturn(fakeEntities);
 
         List<Message> actual = service.getByTime(10, 20);
 
         List<Message> expected = Arrays.asList(
-                new Message("one"),
-                new Message("two")
+                new Message("fifteen"),
+                new Message("seventeen")
         );
         assertEquals(expected, actual);
     }

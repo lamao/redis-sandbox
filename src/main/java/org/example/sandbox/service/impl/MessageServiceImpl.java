@@ -7,10 +7,10 @@ import org.example.sandbox.service.MessageService;
 import org.example.sandbox.service.model.Message;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -37,9 +37,22 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getByTime(long start, long end) {
-        return repository.findAllByPublishDateBetween(new Date(start), new Date(end))
-                .stream()
-                .map(entity -> new Message(entity.getContent()))
-                .collect(Collectors.toList());
+        Date startDate = new Date(start);
+        Date endDate = new Date(end);
+
+        List<Message> result = new ArrayList<>();
+
+        for (MessageEntity entity : repository.findAll()) {
+            if (isDateBetween(entity.getPublishDate(), startDate, endDate)
+            ) {
+                result.add(new Message(entity.getContent()));
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isDateBetween(Date date, Date startDate, Date endDate) {
+        return date.after(startDate) && date.before(endDate);
     }
 }
