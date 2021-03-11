@@ -1,11 +1,13 @@
 package org.example.sandbox.repository;
 
+import org.example.sandbox.configuration.TestRedisConfiguration;
 import org.example.sandbox.repository.entity.MessageEntity;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -20,11 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Created by vyacheslav.mischeryakov
  * Created 07.03.2021
  */
-// TODO: Requires external redis server to be run.
 @Disabled
 @ExtendWith(SpringExtension.class)
-//@SpringBootTest(classes = TestRedisConfiguration.class)
-@DataRedisTest
+@SpringBootTest(classes = TestRedisConfiguration.class)
 public class TestMessageRepository {
 
     @Autowired
@@ -57,7 +57,6 @@ public class TestMessageRepository {
     }
 
     // BETWEEN (2): [IsBetween, Between] is not supported for Redis query derivation!
-    @Disabled
     @Test
     public void testGetByDate() {
         List<MessageEntity> actual = repository.findAllByPublishTimestampMillisBetween(new Date(10), new Date(20));

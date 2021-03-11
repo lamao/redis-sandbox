@@ -1,6 +1,7 @@
 package org.example.sandbox.configuration;
 
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import redis.embedded.RedisServer;
 
 import javax.annotation.PostConstruct;
