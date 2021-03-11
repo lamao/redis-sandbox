@@ -1,18 +1,15 @@
 package org.example.sandbox.repository;
 
-import org.example.sandbox.configuration.RedisConfiguration;
 import org.example.sandbox.configuration.TestRedisConfiguration;
 import org.example.sandbox.repository.entity.MessageEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -28,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * Created 07.03.2021
  */
 @Disabled
-@SpringBootTest(classes = {TestRedisConfiguration.class, RedisConfiguration.class})
+@SpringBootTest(classes = {TestRedisConfiguration.class})
 public class TestRedisTemplate {
 
     @Autowired
@@ -56,17 +53,17 @@ public class TestRedisTemplate {
                 .content("some value")
                 .publishTimestampMillis(10)
                 .build());
-        hashOperations.put("Messages", "fifteen",MessageEntity.builder()
+        hashOperations.put("Messages", "fifteen", MessageEntity.builder()
                 .id("fifteen")
                 .content("another value")
                 .publishTimestampMillis(15)
                 .build());
-        hashOperations.put("Messages", "seventeen",MessageEntity.builder()
+        hashOperations.put("Messages", "seventeen", MessageEntity.builder()
                 .id("seventeen")
                 .content("another value")
                 .publishTimestampMillis(17)
                 .build());
-        hashOperations.put("Messages", "twenty",MessageEntity.builder()
+        hashOperations.put("Messages", "twenty", MessageEntity.builder()
                 .id("twenty")
                 .content("another value")
                 .publishTimestampMillis(25)
@@ -81,7 +78,7 @@ public class TestRedisTemplate {
         assertNotNull(actualRaw);
         assertEquals(2, actualRaw.size());
 
-        List<MessageEntity> actual = ((Set<MessageEntity>)actualRaw)
+        List<MessageEntity> actual = ((Set<MessageEntity>) actualRaw)
                 .stream()
                 .sorted(Comparator
                         .comparingLong(MessageEntity::getPublishTimestampMillis)
