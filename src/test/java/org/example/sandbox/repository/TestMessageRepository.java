@@ -4,11 +4,8 @@ import org.example.sandbox.configuration.TestRedisConfiguration;
 import org.example.sandbox.repository.entity.MessageEntity;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -23,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Created 07.03.2021
  */
 @Disabled
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = TestRedisConfiguration.class)
 public class TestMessageRepository {
 

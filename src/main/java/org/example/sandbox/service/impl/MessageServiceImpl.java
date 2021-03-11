@@ -8,6 +8,7 @@ import org.example.sandbox.service.model.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,21 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Optional<Message> getLast() {
-        return repository.findFirst1ByOrderByPublishTimestampMillisDesc()
-                .map(it -> new Message(it.getContent()));
+        Iterable<MessageEntity> allEntries = repository.findAll();
+        if (!allEntries.iterator().hasNext()) {
+            return Optional.empty();
+        }
+
+        Iterator<MessageEntity> iterator = allEntries.iterator();
+        MessageEntity lastEntity = iterator.next();
+        while (iterator.hasNext()) {
+            MessageEntity currentEntity = iterator.next();
+            if (currentEntity.getPublishTimestampMillis() > lastEntity.getPublishTimestampMillis()) {
+                lastEntity = currentEntity;
+            }
+        }
+
+        return Optional.of(new Message(lastEntity.getContent()));
 
     }
 

@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,25 +42,30 @@ public class TestMessageServiceImpl {
 
     @Test
     public void testGetLastReturnsData() {
-        Optional<MessageEntity> fakeEntity = Optional.of(
+        List<MessageEntity> fakeEntities = Arrays.asList(
                 MessageEntity.builder()
-                        .id("key")
-                        .content("any-message")
-                        .publishTimestampMillis(10)
+                        .id("five")
+                        .content("five")
+                        .publishTimestampMillis(5000)
+                        .build(),
+                MessageEntity.builder()
+                        .id("fifteen")
+                        .content("fifteen")
+                        .publishTimestampMillis(15000)
                         .build()
         );
-        when(repository.findFirst1ByOrderByPublishTimestampMillisDesc()).thenReturn(fakeEntity);
+        when(repository.findAll()).thenReturn(fakeEntities);
 
         Optional<Message> actual = service.getLast();
 
         assertTrue(actual.isPresent());
-        Message expected = new Message("any-message");
+        Message expected = new Message("fifteen");
         assertEquals(expected, actual.get());
     }
 
     @Test
     public void testGetLastReturnsNoData() {
-        when(repository.findFirst1ByOrderByPublishTimestampMillisDesc()).thenReturn(Optional.empty());
+        when(repository.findAll()).thenReturn(Collections.emptyList());
 
         Optional<Message> actual = service.getLast();
 
